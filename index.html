@@ -6,196 +6,154 @@
 <title>Simulador consumidor.gov</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne+Mono&display=swap');
-
 :root {
-  --bg:      #f4f1eb;
-  --surface: #ffffff;
-  --surface2:#eeebe4;
-  --border:  #ddd9d0;
-  --ink:     #1a1714;
-  --ink2:    #6b6560;
-  --bad:     #b83218;
-  --good:    #1e6640;
-  --mid:     #c96f00;
-  --dez:     #1a3a5c;
+  --bg:#f4f1eb; --surface:#fff; --surface2:#eeebe4; --border:#ddd9d0;
+  --ink:#1a1714; --ink2:#6b6560; --bad:#b83218; --good:#1e6640; --mid:#c96f00; --dez:#1a3a5c;
 }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--ink);font-family:'Space Grotesk',sans-serif;min-height:100vh;}
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--ink); font-family: 'Space Grotesk', sans-serif; min-height: 100vh; }
+/* HEADER */
+.hdr{background:var(--ink);padding:24px 36px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(--bad);}
+.hdr h1{font-family:'Syne Mono',monospace;font-size:20px;color:#f4f1eb;line-height:1;}
+.hdr h1 em{color:#e05535;font-style:normal;}
+.hdr p{font-size:10px;color:#9a9088;margin-top:5px;letter-spacing:.07em;text-transform:uppercase;}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.hdr-btn{padding:8px 15px;border-radius:6px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid #4a4540;background:transparent;color:#f4f1eb;transition:all .15s;white-space:nowrap;}
+.hdr-btn:hover{background:#2a2520;border-color:#8a8078;}
+.chip{background:var(--dez);border-radius:6px;padding:10px 18px;text-align:center;}
+.chip .cl{font-size:10px;color:#7aaac8;letter-spacing:.1em;text-transform:uppercase;}
+.chip .cv{font-family:'Syne Mono',monospace;font-size:28px;color:#fff;line-height:1.1;}
 
-/* ── HEADER ── */
-.hdr {
-  background: var(--ink); padding: 24px 36px;
-  display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 3px solid var(--bad);
-}
-.hdr h1 { font-family: 'Syne Mono', monospace; font-size: 20px; color: #f4f1eb; line-height: 1; }
-.hdr h1 em { color: #e05535; font-style: normal; }
-.hdr p  { font-size: 10px; color: #9a9088; margin-top: 5px; letter-spacing: .07em; text-transform: uppercase; }
-.chip   { background: var(--dez); border-radius: 6px; padding: 10px 18px; text-align: center; }
-.chip .cl { font-size: 10px; color: #7aaac8; letter-spacing: .1em; text-transform: uppercase; }
-.chip .cv { font-family: 'Syne Mono', monospace; font-size: 28px; color: #fff; line-height: 1.1; }
+/* LAYOUT */
+.wrap{max-width:1160px;margin:0 auto;padding:28px 36px;}
+.row{display:grid;gap:10px;margin-bottom:10px;}
+.r3{grid-template-columns:repeat(3,1fr);}
+.r2{grid-template-columns:repeat(2,1fr);}
 
-/* ── LAYOUT ── */
-.wrap  { max-width: 1160px; margin: 0 auto; padding: 28px 36px; }
-.row   { display: grid; gap: 10px; margin-bottom: 10px; }
-.row-3 { grid-template-columns: repeat(3, 1fr); }
-.row-2 { grid-template-columns: repeat(2, 1fr); }
-.row-4 { grid-template-columns: repeat(4, 1fr); }
+/* CARDS */
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:20px;}
+.ctitle{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);font-weight:600;margin-bottom:14px;}
+.big{font-family:'Syne Mono',monospace;font-size:56px;line-height:1;transition:color .3s;}
+.sub{font-size:11px;color:var(--ink2);margin-top:4px;font-family:'Syne Mono',monospace;}
+.stars{display:flex;gap:3px;margin:7px 0 5px;}
+.star{font-size:16px;color:var(--border);transition:color .2s,transform .2s;}
+.star.on{color:#d4840a;transform:scale(1.1);}
+.tag{display:inline-block;padding:3px 9px;border-radius:4px;font-size:11px;font-weight:600;margin-top:7px;letter-spacing:.03em;}
+.tg{background:#d1ead9;color:var(--good);}
+.tw{background:#fef3cd;color:var(--mid);}
+.tb{background:#fce8e3;color:var(--bad);}
 
-/* ── CARDS ── */
-.card  { background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 20px; }
-.ctitle{ font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink2); font-weight: 600; margin-bottom: 14px; }
+/* SECTION */
+.sec{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);font-weight:600;margin:24px 0 11px;display:flex;align-items:center;gap:10px;}
+.sec::after{content:'';flex:1;height:1px;background:var(--border);}
 
-/* ── BIG NUMBER ── */
-.big   { font-family: 'Syne Mono', monospace; font-size: 56px; line-height: 1; transition: color .3s; }
-.sub   { font-size: 11px; color: var(--ink2); margin-top: 4px; font-family: 'Syne Mono', monospace; }
-.stars { display: flex; gap: 3px; margin: 7px 0 5px; }
-.star  { font-size: 16px; color: var(--border); transition: color .2s, transform .2s; }
-.star.on { color: #d4840a; transform: scale(1.1); }
-.tag  { display: inline-block; padding: 3px 9px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-top: 7px; letter-spacing: .03em; }
-.tg   { background: #d1ead9; color: var(--good); }
-.tw   { background: #fef3cd; color: var(--mid);  }
-.tb   { background: #fce8e3; color: var(--bad);  }
+/* MONTH GRID */
+.mgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:7px;}
+.mc{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:10px 8px;cursor:pointer;transition:all .14s;position:relative;}
+.mc:hover{border-color:var(--ink);transform:translateY(-1px);}
+.mc.active{border-color:var(--ink);background:var(--ink);}
+.mc.hasdata{border-color:var(--ink2);}
+.mc.isdez{border-color:var(--dez);}
+.mc.isdez.active{background:var(--dez);}
+.mc-name{font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2);margin-bottom:3px;}
+.mc.active .mc-name{color:#7a90a8;}
+.mc-score{font-family:'Syne Mono',monospace;font-size:16px;color:var(--ink2);}
+.mc.hasdata .mc-score{color:var(--ink);}
+.mc.active .mc-score{color:#fff;}
+.mc-qty{font-size:9px;color:var(--ink2);margin-top:1px;font-family:'Syne Mono',monospace;}
+.mc.active .mc-qty{color:#7a90a8;}
+.mc-dot{width:5px;height:5px;border-radius:50%;position:absolute;top:7px;right:7px;}
 
-/* ── SECTION LABEL ── */
-.sec  { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink2); font-weight: 600;
-        margin: 24px 0 11px; display: flex; align-items: center; gap: 10px; }
-.sec::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+/* EDIT PANEL */
+.epanel{background:var(--surface);border:1.5px solid var(--ink);border-radius:10px;padding:20px;display:none;margin-top:10px;}
+.epanel.open{display:block;}
+.ephead{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px;}
+.eptitle{font-family:'Syne Mono',monospace;font-size:14px;}
+.btnx{background:none;border:none;font-size:18px;cursor:pointer;color:var(--ink2);padding:2px 6px;}
+.btnx:hover{color:var(--bad);}
+.irow{display:flex;gap:12px;align-items:flex-end;margin-bottom:12px;}
+.ig{display:flex;flex-direction:column;gap:4px;flex:1;}
+.ig label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);font-weight:600;}
+.ig .hint{font-size:10px;color:var(--ink2);font-family:'Syne Mono',monospace;margin-top:2px;}
+input[type="number"]{background:var(--surface2);border:1.5px solid var(--border);border-radius:6px;color:var(--ink);font-family:'Syne Mono',monospace;font-size:16px;padding:9px 12px;width:100%;outline:none;transition:border-color .14s;-moz-appearance:textfield;}
+input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;}
+input[type="number"]:focus{border-color:var(--ink);}
+.btnadd{padding:9px 18px;border-radius:6px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;background:var(--ink);color:#f4f1eb;white-space:nowrap;transition:all .14s;}
+.btnadd:hover{background:#000;transform:translateY(-1px);}
+.btndel{background:none;border:1.5px solid var(--border);color:var(--bad);padding:5px 10px;font-size:12px;border-radius:4px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;}
+.btndel:hover{background:#fce8e3;border-color:var(--bad);}
+.llist{display:flex;flex-direction:column;gap:5px;max-height:150px;overflow-y:auto;}
+.llist::-webkit-scrollbar{width:3px;}
+.llist::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.litem{display:flex;align-items:center;justify-content:space-between;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 11px;animation:fi .18s ease;}
+@keyframes fi{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
+.lscore{font-family:'Syne Mono',monospace;font-size:13px;font-weight:600;}
+.lmeta{font-size:11px;color:var(--ink2);font-family:'Syne Mono',monospace;}
 
-/* ── MONTH GRID ── */
-.mgrid { display: grid; grid-template-columns: repeat(12,1fr); gap: 7px; }
-.mc    { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px;
-         padding: 10px 8px; cursor: pointer; transition: all .14s; position: relative; }
-.mc:hover  { border-color: var(--ink); transform: translateY(-1px); }
-.mc.active { border-color: var(--ink); background: var(--ink); }
-.mc.hasdata{ border-color: var(--ink2); }
-.mc.isdez  { border-color: var(--dez); }
-.mc.isdez.active { background: var(--dez); }
-.mc-name { font-size: 9px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ink2); margin-bottom: 3px; }
-.mc.active .mc-name { color: #7a90a8; }
-.mc-score{ font-family: 'Syne Mono', monospace; font-size: 16px; color: var(--ink2); }
-.mc.hasdata .mc-score { color: var(--ink); }
-.mc.active  .mc-score { color: #fff; }
-.mc-qty  { font-size: 9px; color: var(--ink2); margin-top: 1px; font-family: 'Syne Mono', monospace; }
-.mc.active  .mc-qty  { color: #7a90a8; }
-.mc-dot  { width: 5px; height: 5px; border-radius: 50%; position: absolute; top: 7px; right: 7px; }
+/* ALERT CARDS */
+.alert-card{border-radius:10px;padding:22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.ac-bad{background:#fce8e3;border:2px solid #e8b0a0;}
+.ac-good{background:#d1ead9;border:2px solid #8ecba5;}
+.ac-icon{font-size:28px;line-height:1;}
+.ac-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;}
+.ac-bad .ac-label{color:var(--bad);}
+.ac-good .ac-label{color:var(--good);}
+.ac-val{font-family:'Syne Mono',monospace;font-size:52px;line-height:1;}
+.ac-bad .ac-val{color:var(--bad);}
+.ac-good .ac-val{color:var(--good);}
+.ac-desc{font-size:12px;color:var(--ink2);line-height:1.5;max-width:220px;font-family:'Syne Mono',monospace;}
+.ac-formula{font-size:11px;color:var(--ink2);font-family:'Syne Mono',monospace;background:rgba(0,0,0,.05);border-radius:5px;padding:6px 10px;margin-top:4px;width:100%;text-align:left;line-height:1.5;}
 
-/* ── EDIT PANEL ── */
-.epanel { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 10px;
-          padding: 20px; display: none; }
-.epanel.open { display: block; }
-.ephead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
-.eptitle{ font-family: 'Syne Mono', monospace; font-size: 14px; }
-.btnx   { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--ink2); padding: 2px 6px; }
-.btnx:hover { color: var(--bad); }
+/* SCENARIO */
+.sblock{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:13px 15px;margin-bottom:8px;}
+.sblock:last-child{margin-bottom:0;}
+.slabel{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);font-weight:600;margin-bottom:4px;}
+.sval{font-family:'Syne Mono',monospace;font-size:22px;line-height:1.1;transition:color .3s;}
+.ssub{font-size:11px;color:var(--ink2);margin-top:3px;font-family:'Syne Mono',monospace;}
+.cen-row{display:flex;gap:8px;margin-top:8px;}
+.cen-box{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px;}
+.cen-box .cl{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);font-weight:600;margin-bottom:3px;}
+.cen-box .cv{font-family:'Syne Mono',monospace;font-size:17px;}
+.cen-box .cs{font-size:10px;color:var(--ink2);margin-top:2px;font-family:'Syne Mono',monospace;}
 
-.irow   { display: flex; gap: 12px; align-items: flex-end; margin-bottom: 12px; }
-.ig     { display: flex; flex-direction: column; gap: 4px; flex: 1; }
-.ig label{ font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink2); font-weight: 600; }
-.ig .hint{ font-size: 10px; color: var(--ink2); font-family: 'Syne Mono', monospace; margin-top: 2px; }
+/* PROGRESS */
+.pgwrap{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin:10px 0 3px;}
+.pgfill{height:100%;border-radius:3px;transition:width .4s ease,background .3s;}
+.pglbls{display:flex;justify-content:space-between;font-family:'Syne Mono',monospace;font-size:10px;color:var(--ink2);}
 
-input[type="number"] {
-  background: var(--surface2); border: 1.5px solid var(--border); border-radius: 6px;
-  color: var(--ink); font-family: 'Syne Mono', monospace; font-size: 16px;
-  padding: 9px 12px; width: 100%; outline: none; transition: border-color .14s;
-  -moz-appearance: textfield;
-}
-input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
-input[type="number"]:focus { border-color: var(--ink); }
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;align-items:center;justify-content:center;}
+.overlay.open{display:flex;}
+.modal{background:var(--surface);border-radius:12px;padding:28px;width:620px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.modal h2{font-family:'Syne Mono',monospace;font-size:16px;margin-bottom:6px;}
+.modal .mdesc{font-size:12px;color:var(--ink2);margin-bottom:14px;line-height:1.5;}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;}
+.mbtn{padding:9px 18px;border-radius:6px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .14s;}
+.mbtn-cancel{background:var(--surface2);color:var(--ink2);border:1.5px solid var(--border);}
+.mbtn-cancel:hover{background:var(--border);}
+.mbtn-ok{background:var(--ink);color:#f4f1eb;}
+.mbtn-ok:hover{background:#000;}
+.prev-table{width:100%;border-collapse:collapse;margin:12px 0 4px;font-family:'Syne Mono',monospace;font-size:12px;}
+.prev-table th{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2);font-weight:600;text-align:left;padding:0 0 8px;border-bottom:1px solid var(--border);}
+.prev-table td{padding:7px 8px 7px 0;border-bottom:1px solid var(--surface2);}
+.prev-table tr.rok td:first-child{color:var(--good);font-weight:600;}
+.prev-table tr.rerr td{color:var(--bad);}
+.pmsg{font-size:11px;margin-top:8px;font-family:'Syne Mono',monospace;}
+.pmsg.ok{color:var(--good);}
+.pmsg.err{color:var(--bad);}
 
-.btnadd { padding: 9px 18px; border-radius: 6px; font-family: 'Space Grotesk', sans-serif;
-          font-size: 13px; font-weight: 700; cursor: pointer; border: none;
-          background: var(--ink); color: #f4f1eb; white-space: nowrap; transition: all .14s; }
-.btnadd:hover { background: #000; transform: translateY(-1px); }
-.btndel { background: none; border: 1.5px solid var(--border); color: var(--bad);
-          padding: 5px 10px; font-size: 12px; border-radius: 4px; cursor: pointer;
-          font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
-.btndel:hover { background: #fce8e3; border-color: var(--bad); }
-
-.llist  { display: flex; flex-direction: column; gap: 5px; max-height: 150px; overflow-y: auto; }
-.llist::-webkit-scrollbar { width: 3px; }
-.llist::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-.litem  { display: flex; align-items: center; justify-content: space-between;
-          background: var(--surface2); border: 1px solid var(--border); border-radius: 6px;
-          padding: 7px 11px; animation: fi .18s ease; }
-@keyframes fi { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:none; } }
-.lscore { font-family: 'Syne Mono', monospace; font-size: 13px; font-weight: 600; }
-.lmeta  { font-size: 11px; color: var(--ink2); font-family: 'Syne Mono', monospace; }
-
-/* ── ALERT CARDS (1★ / 5★) ── */
-.alert-card {
-  border-radius: 10px; padding: 22px; text-align: center;
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-}
-.ac-bad  { background: #fce8e3; border: 2px solid #e8b0a0; }
-.ac-good { background: #d1ead9; border: 2px solid #8ecba5; }
-.ac-icon { font-size: 28px; line-height: 1; }
-.ac-label{ font-size: 10px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; }
-.ac-bad  .ac-label { color: var(--bad); }
-.ac-good .ac-label { color: var(--good); }
-.ac-val  { font-family: 'Syne Mono', monospace; font-size: 52px; line-height: 1; font-weight: 400; }
-.ac-bad  .ac-val   { color: var(--bad); }
-.ac-good .ac-val   { color: var(--good); }
-.ac-desc { font-size: 12px; color: var(--ink2); line-height: 1.5; max-width: 200px; font-family: 'Syne Mono', monospace; }
-.ac-formula { font-size: 11px; color: var(--ink2); font-family: 'Syne Mono', monospace;
-              background: rgba(0,0,0,.05); border-radius: 5px; padding: 6px 10px; margin-top: 4px; width: 100%; text-align: left; line-height: 1.5; }
-
-/* ── CENÁRIO CARD ── */
-.sblock { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 13px 15px; margin-bottom: 8px; }
-.sblock:last-child { margin-bottom: 0; }
-.slabel { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink2); font-weight: 600; margin-bottom: 4px; }
-.sval   { font-family: 'Syne Mono', monospace; font-size: 22px; line-height: 1.1; transition: color .3s; }
-.ssub   { font-size: 11px; color: var(--ink2); margin-top: 3px; font-family: 'Syne Mono', monospace; }
-
-.cen-row { display: flex; gap: 8px; margin-top: 8px; }
-.cen-box { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 11px; }
-.cen-box .cl { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink2); font-weight: 600; margin-bottom: 3px; }
-.cen-box .cv { font-family: 'Syne Mono', monospace; font-size: 17px; }
-.cen-box .cs { font-size: 10px; color: var(--ink2); margin-top: 2px; font-family: 'Syne Mono', monospace; }
-
-/* ── HEADER BUTTONS ── */
-.hdr-actions { display: flex; gap: 8px; align-items: center; }
-.hdr-btn { padding: 8px 16px; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; border: none; transition: all .15s; white-space: nowrap; }
-.hdr-btn-out { background: transparent; color: #f4f1eb; border: 1.5px solid #4a4540; }
-.hdr-btn-out:hover { background: #2a2520; border-color: #8a8078; }
-.hdr-btn-in  { background: #2d5a8e; color: #fff; border: 1.5px solid #3a6a9e; }
-.hdr-btn-in:hover  { background: #3a6a9e; }
-
-/* ── MODAL ── */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 1000; align-items: center; justify-content: center; }
-.modal-overlay.open { display: flex; }
-.modal { background: var(--surface); border-radius: 12px; padding: 28px; width: 640px; max-width: 95vw; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,.3); }
-.modal h2 { font-family: 'Syne Mono', monospace; font-size: 16px; margin-bottom: 6px; }
-.modal p.mdesc { font-size: 12px; color: var(--ink2); margin-bottom: 16px; line-height: 1.5; }
-.modal textarea { width: 100%; height: 160px; background: var(--surface2); border: 1.5px solid var(--border); border-radius: 6px; font-family: 'Syne Mono', monospace; font-size: 12px; color: var(--ink); padding: 10px 12px; outline: none; resize: vertical; transition: border-color .14s; }
-.modal textarea:focus { border-color: var(--ink); }
-.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
-.mbtn { padding: 9px 18px; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; border: none; transition: all .14s; }
-.mbtn-cancel { background: var(--surface2); color: var(--ink2); border: 1.5px solid var(--border); }
-.mbtn-cancel:hover { background: var(--border); }
-.mbtn-ok { background: var(--ink); color: #f4f1eb; }
-.mbtn-ok:hover { background: #000; }
-.preview-table { width: 100%; border-collapse: collapse; margin: 14px 0 4px; font-family: 'Syne Mono', monospace; font-size: 12px; }
-.preview-table th { font-size: 10px; letter-spacing: .09em; text-transform: uppercase; color: var(--ink2); font-weight: 600; text-align: left; padding: 0 0 8px; border-bottom: 1px solid var(--border); }
-.preview-table td { padding: 7px 0; border-bottom: 1px solid var(--surface2); }
-.preview-table tr.err td { color: var(--bad); }
-.perror { font-size: 11px; color: var(--bad); margin-top: 8px; font-family: 'Syne Mono', monospace; line-height: 1.5; }
-.psuccess { font-size: 11px; color: var(--good); margin-top: 8px; font-family: 'Syne Mono', monospace; }
-
-/* ── PROGRESS ── */
-.pgwrap { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; margin: 10px 0 3px; }
-.pgfill { height: 100%; border-radius: 3px; transition: width .4s ease, background .3s; }
-.pglbls { display: flex; justify-content: space-between; font-family: 'Syne Mono', monospace; font-size: 10px; color: var(--ink2); }
-
-@media (max-width: 860px) {
-  .mgrid { grid-template-columns: repeat(6,1fr); }
-  .row-3, .row-2, .row-4 { grid-template-columns: 1fr; }
-  .hdr, .wrap { padding: 16px 16px; }
+@media(max-width:860px){
+  .mgrid{grid-template-columns:repeat(6,1fr);}
+  .r3,.r2{grid-template-columns:1fr;}
+  .hdr,.wrap{padding:16px;}
 }
 </style>
 </head>
 <body>
+
+<!-- hidden file input -->
+<input type="file" id="file-input" accept=".csv,.txt" style="display:none">
 
 <!-- HEADER -->
 <div class="hdr">
@@ -203,136 +161,111 @@ input[type="number"]:focus { border-color: var(--ink); }
     <h1>consumidor<em>.sim</em></h1>
     <p>Simulador de nota · consumidor.gov.br</p>
   </div>
-  <div style="display:flex;align-items:center;gap:12px">
-    <div class="hdr-actions">
-      <button class="hdr-btn hdr-btn-out" onclick="openImport()">&#11014; Importar planilha</button>
-      <button class="hdr-btn hdr-btn-out" onclick="exportCSV()">&#11015; Exportar CSV</button>
-    </div>
+  <div class="hdr-right">
+    <button class="hdr-btn" id="btn-import">&#11014; Importar CSV</button>
+    <button class="hdr-btn" id="btn-export">&#11015; Exportar CSV</button>
     <div class="chip">
-      <div class="cl">▸ meta acumulada ano</div>
-      <div class="cv">3,2 ★</div>
+      <div class="cl">&#9658; meta acumulada ano</div>
+      <div class="cv">3,2 &#9733;</div>
     </div>
   </div>
 </div>
 
-<!-- MODAL IMPORTAR -->
-<div class="modal-overlay" id="modal-import">
+<!-- MODAL PREVIEW IMPORTAÇÃO -->
+<div class="overlay" id="overlay-import">
   <div class="modal">
-    <h2>&#11014; Importar dados da planilha</h2>
-    <p class="mdesc">
-      Cole abaixo os dados copiados do Excel ou Google Sheets.<br>
-      Formato esperado: <strong>3 colunas</strong> — <code>Mês &nbsp;·&nbsp; Soma das notas &nbsp;·&nbsp; Qtd. de avaliações</code><br>
-      Separador: <strong>Tab</strong> (padrão ao copiar do Excel) ou <strong>ponto-e-vírgula</strong>.<br>
-      O campo "Mês" aceita nome (Jan, Fev…) ou número (1–12). Cabeçalho é opcional e será ignorado automaticamente.
-    </p>
-    <textarea id="import-ta" placeholder="Jan	620	150&#10;Fev	480	120&#10;Mar	710	180" oninput="parsePreview()"></textarea>
+    <h2>&#11014; Importar CSV</h2>
+    <p class="mdesc" id="import-fname"></p>
+    <p class="mdesc">Confira os dados reconhecidos abaixo. A nota média será recalculada automaticamente.</p>
     <div id="import-preview"></div>
     <div class="modal-actions">
-      <button class="mbtn mbtn-cancel" onclick="closeImport()">Cancelar</button>
-      <button class="mbtn mbtn-ok" id="btn-confirm" onclick="confirmImport()" disabled>Confirmar importação</button>
+      <button class="mbtn mbtn-cancel" id="btn-cancel-import">Cancelar</button>
+      <button class="mbtn mbtn-ok" id="btn-confirm-import">Confirmar importação</button>
     </div>
   </div>
 </div>
 
 <div class="wrap">
 
-  <!-- SCORECARDS -->
   <div class="sec">notas acumuladas</div>
-  <div class="row row-3">
-
+  <div class="row r3">
     <div class="card">
       <div class="ctitle">acumulado atual (dados inseridos)</div>
-      <div class="big" id="s-real">—</div>
-      <div class="sub" id="q-real">sem avaliações</div>
-      <div class="stars" id="st-real"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <div class="big" id="s-real" style="color:var(--ink2)">—</div>
+      <div class="sub"  id="q-real">sem avaliações</div>
+      <div class="stars" id="st-real"><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span></div>
       <div id="tag-real"></div>
     </div>
-
     <div class="card" style="border-color:var(--dez);border-width:2px">
       <div class="ctitle" style="color:var(--dez)">nota acumulada jan–dez (meta)</div>
-      <div class="big" id="s-proj">—</div>
-      <div class="sub" id="q-proj">insira os dados dos meses</div>
-      <div class="stars" id="st-proj"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <div class="big" id="s-proj" style="color:var(--ink2)">—</div>
+      <div class="sub"  id="q-proj">insira os dados dos meses</div>
+      <div class="stars" id="st-proj"><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span></div>
       <div id="tag-proj"></div>
     </div>
-
     <div class="card">
       <div class="ctitle">distância da meta 3,2</div>
-      <div class="big" id="s-gap">—</div>
-      <div class="sub" id="q-gap">diferença vs 3,20</div>
+      <div class="big" id="s-gap" style="color:var(--ink2)">—</div>
+      <div class="sub"  id="q-gap">diferença vs 3,20</div>
       <div class="pgwrap" style="margin-top:14px"><div class="pgfill" id="pg-fill" style="width:0%"></div></div>
       <div class="pglbls"><span>1</span><span style="color:var(--dez);font-weight:600">3,2</span><span>5</span></div>
     </div>
-
   </div>
 
-  <!-- MESES -->
   <div class="sec">histórico mensal · clique para inserir dados</div>
   <div class="mgrid" id="mgrid"></div>
 
-  <!-- PAINEL EDIÇÃO -->
-  <div class="epanel" id="epanel" style="margin-top:10px">
+  <!-- EDIT PANEL -->
+  <div class="epanel" id="epanel">
     <div class="ephead">
       <div class="eptitle" id="eptitle">── Editar mês</div>
-      <button class="btnx" onclick="closePanel()">✕</button>
+      <button class="btnx" id="btn-close-panel">&#10005;</button>
     </div>
     <div class="irow">
       <div class="ig">
         <label>Soma das notas</label>
         <input type="number" id="i-soma" min="0" step="1" placeholder="ex: 620">
-        <span class="hint">soma de todas as notas recebidas no lote</span>
+        <span class="hint">soma de todas as notas do lote</span>
       </div>
       <div class="ig">
         <label>Qtd. de avaliações</label>
         <input type="number" id="i-qty" min="1" step="1" placeholder="ex: 150">
         <span class="hint">total de avaliações no lote</span>
       </div>
-      <button class="btnadd" onclick="addLote()">+ Adicionar</button>
+      <button class="btnadd" id="btn-add-lote">+ Adicionar</button>
     </div>
     <div class="llist" id="llist"></div>
   </div>
 
-  <!-- ALERTAS 1★ / 5★ -->
   <div class="sec">alertas · projeção até dezembro</div>
-  <div class="row row-2">
-
-    <!-- MÁXIMO DE 1★ -->
+  <div class="row r2">
     <div class="alert-card ac-bad">
-      <div class="ac-icon">⚠</div>
-      <div class="ac-label">máx. notas detratoras (1★) que posso receber</div>
+      <div class="ac-icon">&#9888;</div>
+      <div class="ac-label">máx. notas detratoras (1&#9733;) que posso receber</div>
       <div class="ac-val" id="need-1">—</div>
-      <div class="ac-desc" id="need-1-desc">
-        Com o acumulado atual, você pode receber até este número de notas 1★ antes de a média anual cair abaixo de 3,2.
-      </div>
+      <div class="ac-desc" id="need-1-desc">Com o acumulado atual, você pode receber até este número de notas 1&#9733; antes de a média anual cair abaixo de 3,2.</div>
       <div class="ac-formula" id="need-1-formula">aguardando dados…</div>
     </div>
-
-    <!-- MÍNIMO DE 5★ -->
     <div class="alert-card ac-good">
-      <div class="ac-icon">🎯</div>
-      <div class="ac-label">mín. notas promotoras (5★) que preciso receber</div>
+      <div class="ac-icon">&#127919;</div>
+      <div class="ac-label">mín. notas promotoras (5&#9733;) que preciso receber</div>
       <div class="ac-val" id="need-5">—</div>
-      <div class="ac-desc" id="need-5-desc">
-        Com o acumulado atual, você precisa receber pelo menos este número de notas 5★ para que a média anual atinja 3,2.
-      </div>
+      <div class="ac-desc" id="need-5-desc">Com o acumulado atual, você precisa receber pelo menos este número de notas 5&#9733; para que a média anual atinja 3,2.</div>
       <div class="ac-formula" id="need-5-formula">aguardando dados…</div>
     </div>
-
   </div>
 
-  <!-- CENÁRIOS -->
-  <div class="sec">cenários · qual seria a nota acumulada se o restante viesse com nota média…</div>
-  <div class="row row-2">
-
+  <div class="sec">cenários · nota média futura</div>
+  <div class="row r2">
     <div class="card">
       <div class="ctitle">simulador de nota média futura</div>
       <div class="ig" style="margin-bottom:14px">
         <label>Nota média esperada para as próximas avaliações</label>
-        <input type="number" id="i-media" min="1" max="5" step="0.1" value="4.0" oninput="updateAll()">
+        <input type="number" id="i-media" min="1" max="5" step="0.1" value="4.0">
       </div>
       <div class="ig" style="margin-bottom:14px">
         <label>Volume de avaliações esperado (próximos meses)</label>
-        <input type="number" id="i-vol" min="1" step="1" placeholder="ex: 500" oninput="updateAll()">
+        <input type="number" id="i-vol" min="1" step="1" placeholder="ex: 500">
       </div>
       <div class="sblock">
         <div class="slabel">nota acumulada projetada</div>
@@ -340,101 +273,125 @@ input[type="number"]:focus { border-color: var(--ink); }
         <div class="ssub" id="cen-sub">preencha os campos acima</div>
       </div>
     </div>
-
     <div class="card">
       <div class="ctitle">extremos com o volume informado</div>
       <div class="sblock">
-        <div class="slabel">se todo o volume vier com nota 1★</div>
+        <div class="slabel">se todo o volume vier com nota 1&#9733;</div>
         <div class="sval" id="cen-all1" style="color:var(--bad)">—</div>
         <div class="ssub" id="cen-all1-sub"></div>
       </div>
       <div class="sblock">
-        <div class="slabel">se todo o volume vier com nota 5★</div>
+        <div class="slabel">se todo o volume vier com nota 5&#9733;</div>
         <div class="sval" id="cen-all5" style="color:var(--good)">—</div>
         <div class="ssub" id="cen-all5-sub"></div>
       </div>
       <div class="sblock">
-        <div class="slabel">impacto de 1 nota 1★ no acumulado atual</div>
+        <div class="slabel">impacto de 1 nota 1&#9733; no acumulado atual</div>
         <div class="sval" id="impact1" style="font-size:18px">—</div>
         <div class="ssub" id="impact1-sub"></div>
       </div>
     </div>
-
   </div>
 
 </div><!-- /wrap -->
 
 <script>
-/* ═══════════════════════════════════════
-   ESTADO
-═══════════════════════════════════════ */
-const MONTHS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-const TARGET = 3.2;
+var MONTHS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+var TARGET = 3.2;
+var monthData = [[], [], [], [], [], [], [], [], [], [], [], []];
+var selectedM = null;
+var parsedRows = [];
 
-let monthData = Array.from({length:12}, () => []);  // [{soma,qty}]
-let selectedM = null;
+var MONTH_MAP = {
+  'jan':0,'fev':1,'mar':2,'abr':3,'mai':4,'jun':5,'jul':6,'ago':7,'set':8,'out':9,'nov':10,'dez':11,
+  'janeiro':0,'fevereiro':1,'marco':2,'abril':3,'maio':4,'junho':5,'julho':6,'agosto':7,
+  'setembro':8,'outubro':9,'novembro':10,'dezembro':11,
+  '1':0,'2':1,'3':2,'4':3,'5':4,'6':5,'7':6,'8':7,'9':8,'10':9,'11':10,'12':11
+};
 
-/* ═══════════════════════════════════════
-   INIT
-═══════════════════════════════════════ */
+// ── INIT ──
 function init() {
   buildGrid();
+
+  document.getElementById('btn-import').addEventListener('click', function() {
+    var fi = document.getElementById('file-input');
+    fi.value = '';
+    fi.click();
+  });
+
+  document.getElementById('file-input').addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      var text = ev.target.result;
+      // strip BOM
+      if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+      document.getElementById('import-fname').textContent = '\u2192 ' + file.name;
+      buildPreview(text);
+      document.getElementById('overlay-import').classList.add('open');
+    };
+    reader.readAsText(file, 'UTF-8');
+  });
+
+  document.getElementById('btn-export').addEventListener('click', exportCSV);
+  document.getElementById('btn-cancel-import').addEventListener('click', function() {
+    document.getElementById('overlay-import').classList.remove('open');
+  });
+  document.getElementById('btn-confirm-import').addEventListener('click', confirmImport);
+  document.getElementById('btn-close-panel').addEventListener('click', closePanel);
+  document.getElementById('btn-add-lote').addEventListener('click', addLote);
+  document.getElementById('i-media').addEventListener('input', updateAll);
+  document.getElementById('i-vol').addEventListener('input', updateAll);
+
   updateAll();
 }
 
-/* ═══════════════════════════════════════
-   GRID DE MESES
-═══════════════════════════════════════ */
+// ── GRID ──
 function buildGrid() {
-  const g = document.getElementById('mgrid');
+  var g = document.getElementById('mgrid');
   g.innerHTML = '';
-  MONTHS.forEach((m, i) => {
-    const el = document.createElement('div');
+  MONTHS.forEach(function(m, i) {
+    var el = document.createElement('div');
     el.className = 'mc' + (i === 11 ? ' isdez' : '');
     el.id = 'mc-' + i;
-    el.onclick = () => selectMonth(i);
-    el.innerHTML = `
-      <div class="mc-name">${m}</div>
-      <div class="mc-score" id="mcs-${i}">—</div>
-      <div class="mc-qty"   id="mcq-${i}">·</div>
-      <div class="mc-dot"   id="mcd-${i}"></div>`;
+    el.innerHTML =
+      '<div class="mc-name">' + m + '</div>' +
+      '<div class="mc-score" id="mcs-' + i + '">—</div>' +
+      '<div class="mc-qty"   id="mcq-' + i + '">·</div>' +
+      '<div class="mc-dot"   id="mcd-' + i + '"></div>';
+    el.addEventListener('click', function() { selectMonth(i); });
     g.appendChild(el);
   });
 }
 
-/* ═══════════════════════════════════════
-   PAINEL DE EDIÇÃO
-═══════════════════════════════════════ */
 function selectMonth(i) {
   selectedM = i;
-  document.querySelectorAll('.mc').forEach((c,j) => c.classList.toggle('active', j===i));
-  const p = document.getElementById('epanel');
+  document.querySelectorAll('.mc').forEach(function(c, j) { c.classList.toggle('active', j === i); });
+  var p = document.getElementById('epanel');
   p.classList.add('open');
-  document.getElementById('eptitle').textContent = `── Editar ${MONTHS[i]}${i===11?' (dezembro)':''}`;
+  document.getElementById('eptitle').textContent = '── Editar ' + MONTHS[i] + (i === 11 ? ' (dezembro)' : '');
   document.getElementById('i-soma').value = '';
-  document.getElementById('i-qty').value  = '';
+  document.getElementById('i-qty').value = '';
   renderLotes();
-  p.scrollIntoView({behavior:'smooth', block:'nearest'});
+  p.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function closePanel() {
   document.getElementById('epanel').classList.remove('open');
-  document.querySelectorAll('.mc').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.mc').forEach(function(c) { c.classList.remove('active'); });
   selectedM = null;
 }
 
 function addLote() {
   if (selectedM === null) return;
-  const soma = parseFloat(document.getElementById('i-soma').value);
-  const qty  = parseInt(document.getElementById('i-qty').value);
-  if (isNaN(soma) || soma < 0)   { flash('i-soma'); return; }
-  if (isNaN(qty)  || qty  < 1)   { flash('i-qty');  return; }
-  const avg = soma / qty;
-  if (avg < 1 || avg > 5) {
-    alert(`Média resultante ${avg.toFixed(2)} está fora de 1–5.\nRevise soma e quantidade.`);
-    return;
-  }
-  monthData[selectedM].push({soma, qty});
+  var soma = parseFloat(document.getElementById('i-soma').value);
+  var qty  = parseInt(document.getElementById('i-qty').value, 10);
+  if (isNaN(soma) || soma < 0) { flash('i-soma'); return; }
+  if (isNaN(qty)  || qty  < 1) { flash('i-qty');  return; }
+  var avg = soma / qty;
+  if (avg < 1 || avg > 5) { alert('Média resultante ' + avg.toFixed(2) + ' está fora de 1–5. Revise os valores.'); return; }
+  monthData[selectedM].push({ soma: soma, qty: qty });
   document.getElementById('i-soma').value = '';
   document.getElementById('i-qty').value  = '';
   renderLotes();
@@ -442,86 +399,84 @@ function addLote() {
 }
 
 function flash(id) {
-  const el = document.getElementById(id);
+  var el = document.getElementById(id);
   el.style.borderColor = 'var(--bad)';
   el.focus();
-  setTimeout(() => el.style.borderColor = '', 800);
+  setTimeout(function() { el.style.borderColor = ''; }, 800);
 }
 
 function renderLotes() {
-  const list = document.getElementById('llist');
-  const data = monthData[selectedM] || [];
+  var list = document.getElementById('llist');
+  var data = monthData[selectedM] || [];
   if (!data.length) {
     list.innerHTML = '<div style="font-family:\'Syne Mono\',monospace;font-size:12px;color:var(--ink2);padding:6px 0">Nenhum lote inserido.</div>';
     return;
   }
-  list.innerHTML = data.map((d,idx) => {
-    const avg = d.soma/d.qty;
-    return `<div class="litem">
-      <span class="lscore" style="color:${scolor(avg)}">${avg.toFixed(2)} ★</span>
-      <span class="lmeta">${fmt(d.qty)} avaliações</span>
-      <span class="lmeta">soma: ${fmt(d.soma)}</span>
-      <button class="btndel" onclick="delLote(${idx})">remover</button>
-    </div>`;
+  list.innerHTML = data.map(function(d, idx) {
+    var avg = d.soma / d.qty;
+    return '<div class="litem">' +
+      '<span class="lscore" style="color:' + scolor(avg) + '">' + avg.toFixed(2) + ' &#9733;</span>' +
+      '<span class="lmeta">' + fmt(d.qty) + ' avaliações</span>' +
+      '<span class="lmeta">soma: ' + fmt(d.soma) + '</span>' +
+      '<button class="btndel" onclick="delLote(' + idx + ')">remover</button>' +
+      '</div>';
   }).join('');
 }
 
 function delLote(idx) {
-  monthData[selectedM].splice(idx,1);
+  monthData[selectedM].splice(idx, 1);
   renderLotes();
   updateAll();
 }
 
-/* ═══════════════════════════════════════
-   CÁLCULOS BASE
-═══════════════════════════════════════ */
+// ── MATH ──
 function mStats(i) {
-  const d = monthData[i];
+  var d = monthData[i];
   if (!d || !d.length) return null;
-  const soma = d.reduce((a,x) => a+x.soma, 0);
-  const qty  = d.reduce((a,x) => a+x.qty,  0);
-  return {soma, qty, score: soma/qty};
+  var soma = d.reduce(function(a, x) { return a + x.soma; }, 0);
+  var qty  = d.reduce(function(a, x) { return a + x.qty; }, 0);
+  return { soma: soma, qty: qty, score: soma / qty };
 }
 
-// Acumulado real de todos os meses com dados
 function realTotal() {
-  let soma=0, qty=0;
-  for (let i=0;i<12;i++) { const s=mStats(i); if(s){soma+=s.soma;qty+=s.qty;} }
-  return qty>0 ? {soma,qty,score:soma/qty} : null;
+  var soma = 0, qty = 0;
+  for (var i = 0; i < 12; i++) {
+    var s = mStats(i);
+    if (s) { soma += s.soma; qty += s.qty; }
+  }
+  return qty > 0 ? { soma: soma, qty: qty, score: soma / qty } : null;
 }
 
 function scolor(s) {
-  if (s >= TARGET)       return 'var(--good)';
-  if (s >= TARGET - .5)  return 'var(--mid)';
+  if (s >= TARGET) return 'var(--good)';
+  if (s >= TARGET - 0.5) return 'var(--mid)';
   return 'var(--bad)';
 }
 function stag(s) {
-  if (s >= TARGET)       return `<span class="tag tg">✓ acima da meta</span>`;
-  if (s >= TARGET - .5)  return `<span class="tag tw">⚠ próximo da meta</span>`;
-  return `<span class="tag tb">✗ abaixo da meta</span>`;
+  if (s >= TARGET) return '<span class="tag tg">&#10003; acima da meta</span>';
+  if (s >= TARGET - 0.5) return '<span class="tag tw">&#9888; próximo da meta</span>';
+  return '<span class="tag tb">&#10007; abaixo da meta</span>';
 }
-function stars(id, score) {
-  document.querySelectorAll(`#${id} .star`).forEach((s,i) => s.classList.toggle('on', i < Math.round(score)));
+function setStars(id, score) {
+  document.querySelectorAll('#' + id + ' .star').forEach(function(s, i) {
+    s.classList.toggle('on', i < Math.round(score));
+  });
 }
 function fmt(n)  { return Math.round(n).toLocaleString('pt-BR'); }
-function fmtf(n) { return n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function fmtf(n) { return n.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
 
-/* ═══════════════════════════════════════
-   UPDATE PRINCIPAL
-═══════════════════════════════════════ */
+// ── UPDATE ──
 function updateAll() {
-
-  /* 1 ─ células mensais */
-  MONTHS.forEach((_,i) => {
-    const s   = mStats(i);
-    const sel = document.getElementById(`mcs-${i}`);
-    const qel = document.getElementById(`mcq-${i}`);
-    const del = document.getElementById(`mcd-${i}`);
-    const cel = document.getElementById(`mc-${i}`);
+  MONTHS.forEach(function(_, i) {
+    var s   = mStats(i);
+    var sel = document.getElementById('mcs-' + i);
+    var qel = document.getElementById('mcq-' + i);
+    var del = document.getElementById('mcd-' + i);
+    var cel = document.getElementById('mc-' + i);
     if (s) {
       sel.textContent = s.score.toFixed(2);
       sel.style.color = scolor(s.score);
-      qel.textContent = `${fmt(s.qty)} aval.`;
+      qel.textContent = fmt(s.qty) + ' aval.';
       del.style.background = scolor(s.score);
       cel.classList.add('hasdata');
     } else {
@@ -531,25 +486,31 @@ function updateAll() {
     }
   });
 
-  /* 2 ─ acumulado real */
-  const real = realTotal();
+  var real = realTotal();
+  setCard('s-real', 'q-real', 'st-real', 'tag-real', real, 'dados inseridos');
 
-  setCard('s-real','q-real','st-real','tag-real', real, 'dados inseridos');
+  var media = parseFloat(document.getElementById('i-media').value) || 0;
+  var vol   = parseInt(document.getElementById('i-vol').value, 10) || 0;
+  var proj  = null;
+  if (real && vol > 0 && media >= 1 && media <= 5) {
+    var pSoma  = real.soma + media * vol;
+    var pQty   = real.qty + vol;
+    proj = { soma: pSoma, qty: pQty, score: pSoma / pQty };
+  }
+  setCard('s-proj', 'q-proj', 'st-proj', 'tag-proj', proj || real, proj ? 'acumulado projetado' : 'acumulado jan–dez');
 
-  /* 3 ─ scorecard "projeção jan–dez" (igual ao real por enquanto; atualizado no cenário) */
-  setCard('s-proj','q-proj','st-proj','tag-proj', real, 'acumulado jan–dez');
-
-  /* 4 ─ gap */
-  if (real) {
-    const diff = real.score - TARGET;
-    const gEl  = document.getElementById('s-gap');
-    gEl.textContent = (diff>=0?'+':'') + fmtf(diff);
-    gEl.style.color = scolor(real.score);
-    document.getElementById('q-gap').textContent = `nota atual: ${fmtf(real.score)} · diferença vs 3,20`;
-    const pct = ((real.score-1)/4)*100;
-    const pg  = document.getElementById('pg-fill');
-    pg.style.width = Math.min(100,Math.max(0,pct))+'%';
-    pg.style.background = scolor(real.score);
+  // Gap card
+  var ref = proj || real;
+  if (ref) {
+    var diff = ref.score - TARGET;
+    var gEl = document.getElementById('s-gap');
+    gEl.textContent = (diff >= 0 ? '+' : '') + fmtf(diff);
+    gEl.style.color = scolor(ref.score);
+    document.getElementById('q-gap').textContent = 'nota: ' + fmtf(ref.score) + ' · diferença vs 3,20';
+    var pct = ((ref.score - 1) / 4) * 100;
+    var pg = document.getElementById('pg-fill');
+    pg.style.width = Math.min(100, Math.max(0, pct)) + '%';
+    pg.style.background = scolor(ref.score);
   } else {
     document.getElementById('s-gap').textContent = '—';
     document.getElementById('s-gap').style.color = 'var(--ink2)';
@@ -557,296 +518,221 @@ function updateAll() {
     document.getElementById('pg-fill').style.width = '0%';
   }
 
-  /* 5 ─ ALERTAS 1★ / 5★ */
   updateAlerts(real);
-
-  /* 6 ─ cenários */
   updateCenarios(real);
 }
 
-/* ═══════════════════════════════════════
-   ALERTAS — CÁLCULO INDEPENDENTE
-═══════════════════════════════════════ */
-/*
-  Acumulado atual: soma_r avaliações, qty_r avaliações, score_r = soma_r/qty_r
-
-  ── MÁXIMO DE NOTAS 1★ (detratoras) ──────────────────────────────────────────
-  Pergunta: adicionando X notas 1★ ao acumulado atual, em que ponto a média cai para 3,2?
-  (soma_r + 1·X) / (qty_r + X) = 3,2
-  soma_r + X = 3,2·qty_r + 3,2·X
-  soma_r - 3,2·qty_r = 3,2·X - X = X·(3,2 - 1) = X·2,2
-  X = (soma_r - 3,2·qty_r) / 2,2
-  → Faz sentido apenas se score_r > 3,2 (há "gordura" para absorver notas 1).
-  → Se score_r ≤ 3,2, X = 0 (já está no limite ou abaixo).
-
-  ── MÍNIMO DE NOTAS 5★ (promotoras) ─────────────────────────────────────────
-  Pergunta: adicionando Y notas 5★ ao acumulado atual, em que ponto a média sobe para 3,2?
-  (soma_r + 5·Y) / (qty_r + Y) = 3,2
-  soma_r + 5Y = 3,2·qty_r + 3,2·Y
-  5Y - 3,2Y = 3,2·qty_r - soma_r
-  Y·1,8 = 3,2·qty_r - soma_r
-  Y = (3,2·qty_r - soma_r) / 1,8
-  → Faz sentido apenas se score_r < 3,2.
-  → Se score_r ≥ 3,2, Y = 0 (meta já atingida).
-*/
-function updateAlerts(real) {
-  const n1El   = document.getElementById('need-1');
-  const n1desc = document.getElementById('need-1-desc');
-  const n1form = document.getElementById('need-1-formula');
-  const n5El   = document.getElementById('need-5');
-  const n5desc = document.getElementById('need-5-desc');
-  const n5form = document.getElementById('need-5-formula');
-
-  if (!real) {
-    n1El.textContent = '—';
-    n5El.textContent = '—';
-    n1form.textContent = 'Insira os dados dos meses para calcular.';
-    n5form.textContent = 'Insira os dados dos meses para calcular.';
-    return;
-  }
-
-  const {soma, qty, score} = real;
-
-  /* ── NOTAS 1★ ── */
-  if (score <= TARGET) {
-    // Já está abaixo ou na meta: nenhuma nota 1 tolerada
-    n1El.textContent   = '0';
-    n1El.style.color   = 'var(--bad)';
-    n1desc.textContent = `Atenção: a nota atual (${fmtf(score)}) já está abaixo de 3,2. Nenhuma nota 1★ pode ser recebida sem piorar ainda mais.`;
-    n1form.textContent = `nota atual ${fmtf(score)} ≤ 3,2 → 0 notas 1★ toleradas`;
+function setCard(sId, qId, stId, tId, stats, label) {
+  var sEl = document.getElementById(sId);
+  var qEl = document.getElementById(qId);
+  var tEl = document.getElementById(tId);
+  if (stats) {
+    sEl.textContent = fmtf(stats.score);
+    sEl.style.color = scolor(stats.score);
+    qEl.textContent = fmt(stats.qty) + ' avaliações · ' + label;
+    setStars(stId, stats.score);
+    tEl.innerHTML = stag(stats.score);
   } else {
-    // X = (soma - 3,2·qty) / 2,2
-    const X = Math.floor((soma - TARGET * qty) / (TARGET - 1));
-    // TARGET - 1 = 2,2 mas com sinal: (soma - 3.2*qty)/(3.2-1) = (soma-3.2q)/2.2
-    // Vamos calcular direto:
-    const Xcorrect = Math.floor((soma - TARGET * qty) / (TARGET - 1.0));
-    // TARGET - 1 = 2.2, mas aqui queremos positivo:
-    // numerador: soma - 3.2*qty  → positivo quando score > 3.2 ✓
-    // denominador: 3.2 - 1 = 2.2 → positivo ✓
-    const maxOnes = Math.floor((soma - TARGET * qty) / (TARGET - 1));
-    n1El.textContent   = fmt(maxOnes);
-    n1El.style.color   = maxOnes <= 50 ? 'var(--bad)' : 'var(--mid)';
-    n1desc.textContent = `Com o acumulado atual, você pode receber até ${fmt(maxOnes)} notas 1★ antes de a média anual cair para 3,2.`;
-    n1form.textContent = `(${fmt(soma)} − 3,2 × ${fmt(qty)}) ÷ (3,2 − 1) = ${fmt(maxOnes)} notas 1★`;
-  }
-
-  /* ── NOTAS 5★ ── */
-  if (score >= TARGET) {
-    // Já atingiu a meta
-    n5El.textContent   = '0';
-    n5El.style.color   = 'var(--good)';
-    n5desc.textContent = `Meta já atingida! A nota atual (${fmtf(score)}) está acima de 3,2. Nenhuma nota 5★ adicional é necessária para manter a meta.`;
-    n5form.textContent = `nota atual ${fmtf(score)} ≥ 3,2 → meta já atingida`;
-  } else {
-    // Y = (3,2·qty - soma) / (5 - 3,2) = (3,2q - soma) / 1,8
-    const minFives = Math.ceil((TARGET * qty - soma) / (5 - TARGET));
-    n5El.textContent   = fmt(minFives);
-    n5El.style.color   = 'var(--good)';
-    n5desc.textContent = `Com o acumulado atual, você precisa receber pelo menos ${fmt(minFives)} notas 5★ para que a média anual atinja 3,2.`;
-    n5form.textContent = `(3,2 × ${fmt(qty)} − ${fmt(soma)}) ÷ (5 − 3,2) = ${fmt(minFives)} notas 5★`;
+    sEl.textContent = '—'; sEl.style.color = 'var(--ink2)';
+    qEl.textContent = 'sem dados · ' + label;
+    setStars(stId, 0); tEl.innerHTML = '';
   }
 }
 
-/* ═══════════════════════════════════════
-   CENÁRIOS
-═══════════════════════════════════════ */
-function updateCenarios(real) {
-  const media = parseFloat(document.getElementById('i-media').value) || 0;
-  const vol   = parseInt(document.getElementById('i-vol').value)   || 0;
+// ── ALERTS ──
+function updateAlerts(real) {
+  var n1El = document.getElementById('need-1');
+  var n1d  = document.getElementById('need-1-desc');
+  var n1f  = document.getElementById('need-1-formula');
+  var n5El = document.getElementById('need-5');
+  var n5d  = document.getElementById('need-5-desc');
+  var n5f  = document.getElementById('need-5-formula');
 
-  const realSoma = real ? real.soma : 0;
-  const realQty  = real ? real.qty  : 0;
-
-  // Projeção com nota média e volume
-  const cpEl  = document.getElementById('cen-proj');
-  const csEl  = document.getElementById('cen-sub');
-  if (vol > 0 && media >= 1 && media <= 5) {
-    const projSoma  = realSoma + media * vol;
-    const projQty   = realQty + vol;
-    const projScore = projSoma / projQty;
-    const diff = projScore - TARGET;
-    cpEl.textContent = fmtf(projScore) + ' ★';
-    cpEl.style.color = scolor(projScore);
-    csEl.textContent = `${fmt(projQty)} aval. totais · ${diff>=0?'+':''}${fmtf(diff)} vs 3,2`;
-    csEl.style.color = projScore >= TARGET ? 'var(--good)' : 'var(--bad)';
-
-    // Atualiza scorecard de projeção
-    setCard('s-proj','q-proj','st-proj','tag-proj',
-      {soma:projSoma, qty:projQty, score:projScore}, 'acumulado projetado');
-  } else {
-    cpEl.textContent = '—';
-    csEl.textContent = 'preencha nota média e volume esperado';
-    csEl.style.color = 'var(--ink2)';
-    if (real) setCard('s-proj','q-proj','st-proj','tag-proj', real, 'acumulado jan–dez');
+  if (!real) {
+    n1El.textContent = '—'; n5El.textContent = '—';
+    n1f.textContent = 'Insira dados para calcular.';
+    n5f.textContent = 'Insira dados para calcular.';
+    return;
   }
 
-  // Extremos
-  setCen('cen-all1','cen-all1-sub', realSoma, realQty, vol, 1.0);
-  setCen('cen-all5','cen-all5-sub', realSoma, realQty, vol, 5.0);
+  var soma = real.soma, qty = real.qty, score = real.score;
 
-  // Impacto de 1 nota 1★
-  const i1El  = document.getElementById('impact1');
-  const i1sEl = document.getElementById('impact1-sub');
-  if (real) {
-    const after = (realSoma + 1) / (realQty + 1);
-    const delta = after - real.score;
-    i1El.textContent = (delta>=0?'+':'') + delta.toFixed(4) + ' pts';
-    i1El.style.color = delta < 0 ? 'var(--bad)' : 'var(--good)';
-    i1sEl.textContent = `nota resultante: ${fmtf(after)} ★ (${fmt(realQty+1)} avaliações)`;
+  // MAX notas 1★: (soma + 1·X) / (qty + X) = 3.2  →  X = (soma - 3.2·qty) / (3.2 - 1)
+  if (score <= TARGET) {
+    n1El.textContent = '0';
+    n1El.style.color = 'var(--bad)';
+    n1d.textContent  = 'A nota atual (' + fmtf(score) + ') já está abaixo de 3,2. Nenhuma nota 1★ pode ser recebida sem piorar ainda mais.';
+    n1f.textContent  = 'nota atual ' + fmtf(score) + ' ≤ 3,2 → 0 notas 1★ toleradas';
   } else {
-    i1El.textContent  = '—';
-    i1sEl.textContent = 'insira dados para calcular';
+    var maxOnes = Math.floor((soma - TARGET * qty) / (TARGET - 1));
+    n1El.textContent = fmt(maxOnes);
+    n1El.style.color = maxOnes <= 50 ? 'var(--bad)' : 'var(--mid)';
+    n1d.textContent  = 'Com o acumulado atual você pode receber até ' + fmt(maxOnes) + ' notas 1★ antes de a média anual cair para 3,2.';
+    n1f.textContent  = '(' + fmt(soma) + ' − 3,2 × ' + fmt(qty) + ') ÷ (3,2 − 1) = ' + fmt(maxOnes) + ' notas 1★';
+  }
+
+  // MIN notas 5★: (soma + 5·Y) / (qty + Y) = 3.2  →  Y = (3.2·qty - soma) / (5 - 3.2)
+  if (score >= TARGET) {
+    n5El.textContent = '0';
+    n5El.style.color = 'var(--good)';
+    n5d.textContent  = 'Meta já atingida! A nota atual (' + fmtf(score) + ') está acima de 3,2.';
+    n5f.textContent  = 'nota atual ' + fmtf(score) + ' ≥ 3,2 → meta já atingida';
+  } else {
+    var minFives = Math.ceil((TARGET * qty - soma) / (5 - TARGET));
+    n5El.textContent = fmt(minFives);
+    n5El.style.color = 'var(--good)';
+    n5d.textContent  = 'Com o acumulado atual você precisa receber pelo menos ' + fmt(minFives) + ' notas 5★ para que a média anual atinja 3,2.';
+    n5f.textContent  = '(3,2 × ' + fmt(qty) + ' − ' + fmt(soma) + ') ÷ (5 − 3,2) = ' + fmt(minFives) + ' notas 5★';
+  }
+}
+
+// ── CENÁRIOS ──
+function updateCenarios(real) {
+  var media = parseFloat(document.getElementById('i-media').value) || 0;
+  var vol   = parseInt(document.getElementById('i-vol').value, 10) || 0;
+  var realSoma = real ? real.soma : 0;
+  var realQty  = real ? real.qty  : 0;
+
+  var cpEl = document.getElementById('cen-proj');
+  var csEl = document.getElementById('cen-sub');
+  if (vol > 0 && media >= 1 && media <= 5) {
+    var pScore = (realSoma + media * vol) / (realQty + vol);
+    var diff = pScore - TARGET;
+    cpEl.textContent = fmtf(pScore) + ' ★';
+    cpEl.style.color = scolor(pScore);
+    csEl.textContent = (diff >= 0 ? '+' : '') + fmtf(diff) + ' vs 3,2 · ' + fmt(realQty + vol) + ' aval.';
+    csEl.style.color = pScore >= TARGET ? 'var(--good)' : 'var(--bad)';
+  } else {
+    cpEl.textContent = '—'; csEl.textContent = 'preencha nota média e volume esperado'; csEl.style.color = 'var(--ink2)';
+  }
+
+  setCen('cen-all1', 'cen-all1-sub', realSoma, realQty, vol, 1.0);
+  setCen('cen-all5', 'cen-all5-sub', realSoma, realQty, vol, 5.0);
+
+  var i1El  = document.getElementById('impact1');
+  var i1sEl = document.getElementById('impact1-sub');
+  if (real) {
+    var after = (realSoma + 1) / (realQty + 1);
+    var delta = after - real.score;
+    i1El.textContent = (delta >= 0 ? '+' : '') + delta.toFixed(4) + ' pts';
+    i1El.style.color = delta < 0 ? 'var(--bad)' : 'var(--good)';
+    i1sEl.textContent = 'nota resultante: ' + fmtf(after) + ' ★ (' + fmt(realQty + 1) + ' avaliações)';
+  } else {
+    i1El.textContent = '—'; i1sEl.textContent = 'insira dados para calcular';
   }
 }
 
 function setCen(vId, sId, rSoma, rQty, vol, nota) {
-  const vEl = document.getElementById(vId);
-  const sEl = document.getElementById(sId);
-  if (vol <= 0 || rQty + vol === 0) { vEl.textContent = '—'; sEl.textContent = ''; return; }
-  const score = (rSoma + nota * vol) / (rQty + vol);
-  const diff  = score - TARGET;
+  var vEl = document.getElementById(vId);
+  var sEl = document.getElementById(sId);
+  if (vol <= 0) { vEl.textContent = '—'; sEl.textContent = ''; return; }
+  var score = (rSoma + nota * vol) / (rQty + vol);
+  var diff  = score - TARGET;
   vEl.textContent = fmtf(score) + ' ★';
   vEl.style.color = scolor(score);
-  sEl.textContent = `${diff>=0?'+':''}${fmtf(diff)} vs 3,2 · ${fmt(rQty+vol)} aval.`;
+  sEl.textContent = (diff >= 0 ? '+' : '') + fmtf(diff) + ' vs 3,2 · ' + fmt(rQty + vol) + ' aval.';
 }
 
-/* ═══════════════════════════════════════
-   HELPER SCORECARD
-═══════════════════════════════════════ */
-function setCard(sId, qId, stId, tId, stats, label) {
-  const sEl = document.getElementById(sId);
-  const qEl = document.getElementById(qId);
-  const tEl = document.getElementById(tId);
-  if (stats) {
-    sEl.textContent = fmtf(stats.score);
-    sEl.style.color = scolor(stats.score);
-    qEl.textContent = `${fmt(stats.qty)} avaliações · ${label}`;
-    stars(stId, stats.score);
-    tEl.innerHTML = stag(stats.score);
-  } else {
-    sEl.textContent = '—'; sEl.style.color = 'var(--ink2)';
-    qEl.textContent = `sem dados · ${label}`;
-    stars(stId, 0); tEl.innerHTML = '';
-  }
-}
-
-init();
-
-/* === EXPORTAR CSV === */
+// ── EXPORTAR CSV ──
 function exportCSV() {
-  const MN = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-  const hasAny = monthData.some(d => d.length > 0);
+  var hasAny = monthData.some(function(d) { return d.length > 0; });
   if (!hasAny) { alert('Nenhum dado inserido para exportar.'); return; }
-  const rows = ['Mes;Soma das Notas;Qtd Avaliacoes;Nota Media'];
-  MN.forEach((m, i) => {
-    const s = mStats(i);
-    if (s) rows.push([m, s.soma.toFixed(0), s.qty, s.score.toFixed(2).replace('.',',')].join(';'));
+
+  var rows = ['Mes;Soma das Notas;Qtd Avaliacoes;Nota Media'];
+  MONTHS.forEach(function(m, i) {
+    var s = mStats(i);
+    if (s) rows.push([m, s.soma.toFixed(0), s.qty, s.score.toFixed(2).replace('.', ',')].join(';'));
   });
-  const real = realTotal();
+  var real = realTotal();
   if (real) {
     rows.push('');
-    rows.push(['ACUMULADO', real.soma.toFixed(0), real.qty, real.score.toFixed(2).replace('.',',')].join(';'));
+    rows.push(['ACUMULADO', real.soma.toFixed(0), real.qty, real.score.toFixed(2).replace('.', ',')].join(';'));
   }
-  const blob = new Blob(['\uFEFF' + rows.join('\r\n')], {type:'text/csv;charset=utf-8;'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+
+  var bom  = '\uFEFF';
+  var blob = new Blob([bom + rows.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+  var url  = URL.createObjectURL(blob);
+  var a    = document.createElement('a');
   a.href = url; a.download = 'consumidor_gov_notas.csv'; a.click();
   URL.revokeObjectURL(url);
 }
 
-/* === IMPORTAR PLANILHA === */
-const MONTH_MAP = {
-  'jan':0,'fev':1,'mar':2,'abr':3,'mai':4,'jun':5,'jul':6,'ago':7,'set':8,'out':9,'nov':10,'dez':11,
-  'janeiro':0,'fevereiro':1,'marco':2,'abril':3,'maio':4,'junho':5,'julho':6,'agosto':7,'setembro':8,'outubro':9,'novembro':10,'dezembro':11,
-  '1':0,'2':1,'3':2,'4':3,'5':4,'6':5,'7':6,'8':7,'9':8,'10':9,'11':10,'12':11
-};
-const MNS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-let parsedRows = [];
+// ── IMPORTAR CSV ──
+function normKey(s) {
+  return s.toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]/g, '');
+}
 
-function openImport() {
-  document.getElementById('modal-import').classList.add('open');
-  document.getElementById('import-ta').value = '';
-  document.getElementById('import-preview').innerHTML = '';
-  document.getElementById('btn-confirm').disabled = true;
+function buildPreview(text) {
   parsedRows = [];
-}
-function closeImport() {
-  document.getElementById('modal-import').classList.remove('open');
-}
+  var lines = text.split('\n').map(function(l) { return l.replace(/\r$/, '').trim(); }).filter(function(l) { return l.length > 0; });
+  var results = [];
 
-function normalize(s) {
-  return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');
-}
+  lines.forEach(function(line, idx) {
+    // split by semicolon or tab
+    var parts = line.split(line.indexOf(';') >= 0 ? ';' : '\t').map(function(p) { return p.trim(); });
+    var key = normKey(parts[0] || '');
 
-function parsePreview() {
-  const raw = document.getElementById('import-ta').value.trim();
-  const preview = document.getElementById('import-preview');
-  const btn = document.getElementById('btn-confirm');
-  parsedRows = [];
-  if (!raw) { preview.innerHTML = ''; btn.disabled = true; return; }
-
-  const lines = raw.split(/\r?\n/).filter(l => l.trim());
-  const results = [];
-
-  lines.forEach((line, idx) => {
-    const parts = line.split(/\t|;/).map(p => p.trim());
-    if (parts.length < 3) { results.push({ok:false, raw:line, err:'precisa de 3 colunas (Mes; Soma; Qtd)'}); return; }
-
-    const mKey = normalize(parts[0]);
-
-    // Skip header row automatically
-    if (idx === 0 && isNaN(parseFloat(parts[1].replace(',','.'))) && !(mKey in MONTH_MAP)) {
-      results.push({ok:'skip', raw:line, err:'cabecalho ignorado'}); return;
+    // skip rows where first column is not a month
+    if (!(key in MONTH_MAP)) {
+      results.push({ ok: 'skip', raw: line, note: idx === 0 ? 'cabeçalho ignorado' : 'linha ignorada (' + (parts[0] || '') + ')' });
+      return;
     }
 
-    const mIdx = MONTH_MAP[mKey];
-    if (mIdx === undefined) { results.push({ok:false, raw:line, err:'mes desconhecido: ' + parts[0]}); return; }
+    if (parts.length < 3) {
+      results.push({ ok: false, raw: line, err: 'menos de 3 colunas' }); return;
+    }
 
-    const soma = parseFloat(parts[1].replace(',','.'));
-    const qty  = parseInt(parts[2].replace(',','.'));
-    if (isNaN(soma) || soma < 0) { results.push({ok:false, raw:line, err:'soma invalida'}); return; }
-    if (isNaN(qty)  || qty < 1)  { results.push({ok:false, raw:line, err:'qtd invalida'});  return; }
-    const avg = soma / qty;
-    if (avg < 1 || avg > 5) { results.push({ok:false, raw:line, err:'media ' + avg.toFixed(2) + ' fora de 1-5'}); return; }
+    var mIdx = MONTH_MAP[key];
+    var soma = parseFloat(parts[1].replace(',', '.'));
+    var qty  = parseInt(parts[2].replace(',', '.'), 10);
 
-    results.push({ok:true, mIdx, mName:MNS[mIdx], soma, qty, avg});
-    parsedRows.push({mIdx, soma, qty});
+    if (isNaN(soma) || soma < 0) { results.push({ ok: false, raw: line, err: 'soma inválida' }); return; }
+    if (isNaN(qty)  || qty  < 1) { results.push({ ok: false, raw: line, err: 'qtd inválida' });  return; }
+    var avg = soma / qty;
+    if (avg < 1 || avg > 5) { results.push({ ok: false, raw: line, err: 'média ' + avg.toFixed(2) + ' fora de 1–5' }); return; }
+
+    results.push({ ok: true, mIdx: mIdx, mName: MONTHS[mIdx], soma: soma, qty: qty, avg: avg });
+    parsedRows.push({ mIdx: mIdx, soma: soma, qty: qty });
   });
 
-  const okRows  = results.filter(r => r.ok === true);
-  const errRows = results.filter(r => r.ok === false);
+  var okRows  = results.filter(function(r) { return r.ok === true; });
+  var errRows = results.filter(function(r) { return r.ok === false; });
 
-  let html = '<table class="preview-table"><thead><tr><th>Mes</th><th>Soma</th><th>Qtd</th><th>Media</th><th>Status</th></tr></thead><tbody>';
-  results.forEach(r => {
+  var html = '<table class="prev-table"><thead><tr><th>Mês</th><th>Soma</th><th>Qtd</th><th>Média</th><th>Status</th></tr></thead><tbody>';
+  results.forEach(function(r) {
     if (r.ok === 'skip') {
-      html += '<tr style="opacity:.4"><td colspan="5">' + r.err + '</td></tr>';
+      html += '<tr style="opacity:.35"><td colspan="5" style="font-size:10px">' + r.note + '</td></tr>';
     } else if (r.ok) {
-      html += '<tr class="ok"><td>' + r.mName + '</td><td>' + r.soma.toLocaleString('pt-BR') + '</td><td>' + r.qty.toLocaleString('pt-BR') + '</td><td>' + r.avg.toFixed(2) + ' &star;</td><td style="color:var(--good)">&#10003; ok</td></tr>';
+      html += '<tr class="rok"><td>' + r.mName + '</td><td>' + r.soma.toLocaleString('pt-BR') + '</td><td>' + r.qty.toLocaleString('pt-BR') + '</td><td>' + r.avg.toFixed(2) + ' ★</td><td style="color:var(--good)">✓ ok</td></tr>';
     } else {
-      html += '<tr class="err"><td colspan="4" style="font-size:11px">' + r.raw.substring(0,60) + '</td><td>&#10007; ' + r.err + '</td></tr>';
+      html += '<tr class="rerr"><td colspan="4">' + r.raw.substring(0, 55) + '</td><td>✗ ' + r.err + '</td></tr>';
     }
   });
   html += '</tbody></table>';
 
   if (okRows.length > 0) {
-    html += '<p class="psuccess">&#10003; ' + okRows.length + ' linha(s) valida(s) prontas para importar' + (errRows.length ? ' &middot; ' + errRows.length + ' linha(s) com erro serao ignoradas' : '') + '</p>';
-    btn.disabled = false;
+    html += '<p class="pmsg ok">✓ ' + okRows.length + ' linha(s) válida(s)' + (errRows.length ? ' · ' + errRows.length + ' ignorada(s)' : '') + '</p>';
   } else {
-    html += '<p class="perror">&#10007; Nenhuma linha valida encontrada. Verifique o formato.</p>';
-    btn.disabled = true;
+    html += '<p class="pmsg err">✗ Nenhuma linha válida encontrada. Verifique o arquivo.</p>';
   }
-  preview.innerHTML = html;
+
+  document.getElementById('import-preview').innerHTML = html;
+  document.getElementById('btn-confirm-import').disabled = okRows.length === 0;
 }
 
 function confirmImport() {
-  if (!parsedRows.length) return;
   parsedRows.forEach(function(r) {
-    monthData[r.mIdx].push({soma: r.soma, qty: r.qty});
+    monthData[r.mIdx].push({ soma: r.soma, qty: r.qty });
   });
-  closeImport();
+  document.getElementById('overlay-import').classList.remove('open');
   if (selectedM !== null) renderLotes();
   updateAll();
 }
+
+init();
 </script>
 </body>
 </html>
