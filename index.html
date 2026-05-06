@@ -154,6 +154,35 @@ input[type="number"]:focus { border-color: var(--ink); }
 .cen-box .cv { font-family: 'Syne Mono', monospace; font-size: 17px; }
 .cen-box .cs { font-size: 10px; color: var(--ink2); margin-top: 2px; font-family: 'Syne Mono', monospace; }
 
+/* ── HEADER BUTTONS ── */
+.hdr-actions { display: flex; gap: 8px; align-items: center; }
+.hdr-btn { padding: 8px 16px; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; border: none; transition: all .15s; white-space: nowrap; }
+.hdr-btn-out { background: transparent; color: #f4f1eb; border: 1.5px solid #4a4540; }
+.hdr-btn-out:hover { background: #2a2520; border-color: #8a8078; }
+.hdr-btn-in  { background: #2d5a8e; color: #fff; border: 1.5px solid #3a6a9e; }
+.hdr-btn-in:hover  { background: #3a6a9e; }
+
+/* ── MODAL ── */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 1000; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--surface); border-radius: 12px; padding: 28px; width: 640px; max-width: 95vw; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+.modal h2 { font-family: 'Syne Mono', monospace; font-size: 16px; margin-bottom: 6px; }
+.modal p.mdesc { font-size: 12px; color: var(--ink2); margin-bottom: 16px; line-height: 1.5; }
+.modal textarea { width: 100%; height: 160px; background: var(--surface2); border: 1.5px solid var(--border); border-radius: 6px; font-family: 'Syne Mono', monospace; font-size: 12px; color: var(--ink); padding: 10px 12px; outline: none; resize: vertical; transition: border-color .14s; }
+.modal textarea:focus { border-color: var(--ink); }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+.mbtn { padding: 9px 18px; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; border: none; transition: all .14s; }
+.mbtn-cancel { background: var(--surface2); color: var(--ink2); border: 1.5px solid var(--border); }
+.mbtn-cancel:hover { background: var(--border); }
+.mbtn-ok { background: var(--ink); color: #f4f1eb; }
+.mbtn-ok:hover { background: #000; }
+.preview-table { width: 100%; border-collapse: collapse; margin: 14px 0 4px; font-family: 'Syne Mono', monospace; font-size: 12px; }
+.preview-table th { font-size: 10px; letter-spacing: .09em; text-transform: uppercase; color: var(--ink2); font-weight: 600; text-align: left; padding: 0 0 8px; border-bottom: 1px solid var(--border); }
+.preview-table td { padding: 7px 0; border-bottom: 1px solid var(--surface2); }
+.preview-table tr.err td { color: var(--bad); }
+.perror { font-size: 11px; color: var(--bad); margin-top: 8px; font-family: 'Syne Mono', monospace; line-height: 1.5; }
+.psuccess { font-size: 11px; color: var(--good); margin-top: 8px; font-family: 'Syne Mono', monospace; }
+
 /* ── PROGRESS ── */
 .pgwrap { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; margin: 10px 0 3px; }
 .pgfill { height: 100%; border-radius: 3px; transition: width .4s ease, background .3s; }
@@ -174,9 +203,34 @@ input[type="number"]:focus { border-color: var(--ink); }
     <h1>consumidor<em>.sim</em></h1>
     <p>Simulador de nota · consumidor.gov.br</p>
   </div>
-  <div class="chip">
-    <div class="cl">▸ meta acumulada ano</div>
-    <div class="cv">3,2 ★</div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="hdr-actions">
+      <button class="hdr-btn hdr-btn-out" onclick="openImport()">&#11014; Importar planilha</button>
+      <button class="hdr-btn hdr-btn-out" onclick="exportCSV()">&#11015; Exportar CSV</button>
+    </div>
+    <div class="chip">
+      <div class="cl">▸ meta acumulada ano</div>
+      <div class="cv">3,2 ★</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL IMPORTAR -->
+<div class="modal-overlay" id="modal-import">
+  <div class="modal">
+    <h2>&#11014; Importar dados da planilha</h2>
+    <p class="mdesc">
+      Cole abaixo os dados copiados do Excel ou Google Sheets.<br>
+      Formato esperado: <strong>3 colunas</strong> — <code>Mês &nbsp;·&nbsp; Soma das notas &nbsp;·&nbsp; Qtd. de avaliações</code><br>
+      Separador: <strong>Tab</strong> (padrão ao copiar do Excel) ou <strong>ponto-e-vírgula</strong>.<br>
+      O campo "Mês" aceita nome (Jan, Fev…) ou número (1–12). Cabeçalho é opcional e será ignorado automaticamente.
+    </p>
+    <textarea id="import-ta" placeholder="Jan	620	150&#10;Fev	480	120&#10;Mar	710	180" oninput="parsePreview()"></textarea>
+    <div id="import-preview"></div>
+    <div class="modal-actions">
+      <button class="mbtn mbtn-cancel" onclick="closeImport()">Cancelar</button>
+      <button class="mbtn mbtn-ok" id="btn-confirm" onclick="confirmImport()" disabled>Confirmar importação</button>
+    </div>
   </div>
 </div>
 
@@ -677,6 +731,122 @@ function setCard(sId, qId, stId, tId, stats, label) {
 }
 
 init();
+
+/* === EXPORTAR CSV === */
+function exportCSV() {
+  const MN = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  const hasAny = monthData.some(d => d.length > 0);
+  if (!hasAny) { alert('Nenhum dado inserido para exportar.'); return; }
+  const rows = ['Mes;Soma das Notas;Qtd Avaliacoes;Nota Media'];
+  MN.forEach((m, i) => {
+    const s = mStats(i);
+    if (s) rows.push([m, s.soma.toFixed(0), s.qty, s.score.toFixed(2).replace('.',',')].join(';'));
+  });
+  const real = realTotal();
+  if (real) {
+    rows.push('');
+    rows.push(['ACUMULADO', real.soma.toFixed(0), real.qty, real.score.toFixed(2).replace('.',',')].join(';'));
+  }
+  const blob = new Blob(['\uFEFF' + rows.join('\r\n')], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'consumidor_gov_notas.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* === IMPORTAR PLANILHA === */
+const MONTH_MAP = {
+  'jan':0,'fev':1,'mar':2,'abr':3,'mai':4,'jun':5,'jul':6,'ago':7,'set':8,'out':9,'nov':10,'dez':11,
+  'janeiro':0,'fevereiro':1,'marco':2,'abril':3,'maio':4,'junho':5,'julho':6,'agosto':7,'setembro':8,'outubro':9,'novembro':10,'dezembro':11,
+  '1':0,'2':1,'3':2,'4':3,'5':4,'6':5,'7':6,'8':7,'9':8,'10':9,'11':10,'12':11
+};
+const MNS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+let parsedRows = [];
+
+function openImport() {
+  document.getElementById('modal-import').classList.add('open');
+  document.getElementById('import-ta').value = '';
+  document.getElementById('import-preview').innerHTML = '';
+  document.getElementById('btn-confirm').disabled = true;
+  parsedRows = [];
+}
+function closeImport() {
+  document.getElementById('modal-import').classList.remove('open');
+}
+
+function normalize(s) {
+  return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');
+}
+
+function parsePreview() {
+  const raw = document.getElementById('import-ta').value.trim();
+  const preview = document.getElementById('import-preview');
+  const btn = document.getElementById('btn-confirm');
+  parsedRows = [];
+  if (!raw) { preview.innerHTML = ''; btn.disabled = true; return; }
+
+  const lines = raw.split(/\r?\n/).filter(l => l.trim());
+  const results = [];
+
+  lines.forEach((line, idx) => {
+    const parts = line.split(/\t|;/).map(p => p.trim());
+    if (parts.length < 3) { results.push({ok:false, raw:line, err:'precisa de 3 colunas (Mes; Soma; Qtd)'}); return; }
+
+    const mKey = normalize(parts[0]);
+
+    // Skip header row automatically
+    if (idx === 0 && isNaN(parseFloat(parts[1].replace(',','.'))) && !(mKey in MONTH_MAP)) {
+      results.push({ok:'skip', raw:line, err:'cabecalho ignorado'}); return;
+    }
+
+    const mIdx = MONTH_MAP[mKey];
+    if (mIdx === undefined) { results.push({ok:false, raw:line, err:'mes desconhecido: ' + parts[0]}); return; }
+
+    const soma = parseFloat(parts[1].replace(',','.'));
+    const qty  = parseInt(parts[2].replace(',','.'));
+    if (isNaN(soma) || soma < 0) { results.push({ok:false, raw:line, err:'soma invalida'}); return; }
+    if (isNaN(qty)  || qty < 1)  { results.push({ok:false, raw:line, err:'qtd invalida'});  return; }
+    const avg = soma / qty;
+    if (avg < 1 || avg > 5) { results.push({ok:false, raw:line, err:'media ' + avg.toFixed(2) + ' fora de 1-5'}); return; }
+
+    results.push({ok:true, mIdx, mName:MNS[mIdx], soma, qty, avg});
+    parsedRows.push({mIdx, soma, qty});
+  });
+
+  const okRows  = results.filter(r => r.ok === true);
+  const errRows = results.filter(r => r.ok === false);
+
+  let html = '<table class="preview-table"><thead><tr><th>Mes</th><th>Soma</th><th>Qtd</th><th>Media</th><th>Status</th></tr></thead><tbody>';
+  results.forEach(r => {
+    if (r.ok === 'skip') {
+      html += '<tr style="opacity:.4"><td colspan="5">' + r.err + '</td></tr>';
+    } else if (r.ok) {
+      html += '<tr class="ok"><td>' + r.mName + '</td><td>' + r.soma.toLocaleString('pt-BR') + '</td><td>' + r.qty.toLocaleString('pt-BR') + '</td><td>' + r.avg.toFixed(2) + ' &star;</td><td style="color:var(--good)">&#10003; ok</td></tr>';
+    } else {
+      html += '<tr class="err"><td colspan="4" style="font-size:11px">' + r.raw.substring(0,60) + '</td><td>&#10007; ' + r.err + '</td></tr>';
+    }
+  });
+  html += '</tbody></table>';
+
+  if (okRows.length > 0) {
+    html += '<p class="psuccess">&#10003; ' + okRows.length + ' linha(s) valida(s) prontas para importar' + (errRows.length ? ' &middot; ' + errRows.length + ' linha(s) com erro serao ignoradas' : '') + '</p>';
+    btn.disabled = false;
+  } else {
+    html += '<p class="perror">&#10007; Nenhuma linha valida encontrada. Verifique o formato.</p>';
+    btn.disabled = true;
+  }
+  preview.innerHTML = html;
+}
+
+function confirmImport() {
+  if (!parsedRows.length) return;
+  parsedRows.forEach(function(r) {
+    monthData[r.mIdx].push({soma: r.soma, qty: r.qty});
+  });
+  closeImport();
+  if (selectedM !== null) renderLotes();
+  updateAll();
+}
 </script>
 </body>
 </html>
